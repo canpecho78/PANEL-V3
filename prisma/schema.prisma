@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGODB_URI")
+}
+
+
+
+model enviados {
+  id                    String    @id @default(auto()) @map("_id") @db.ObjectId
+  codigo                Int?
+  direccionEnvio        String
+  efectivoTarjeta       String
+  estado                String
+  /// Multiple data types found: String: 20%, DateTime (Date): 80% out of 5 sampled entries
+  fecha                 Json
+  fechaEliminacion      DateTime? @db.Date
+  hora                  String
+  iD                    Int?
+  nombre                String
+  nuevoEstado           String
+  numeroOrden           String
+  pedido                String
+  referenciaOcomentario String
+  telefono              String
+}
+
+model enviados_enviados {
+  id                    String   @id @default(auto()) @map("_id") @db.ObjectId
+  direccionEnvio        String
+  efectivoTarjeta       String
+  estado                String
+  fecha                 DateTime @db.Date
+  hora                  String
+  iD                    Int
+  nombre                String
+  nuevoEstado           String
+  numeroOrden           String
+  pedido                String
+  referenciaOcomentario String
+  telefono              String
+
+  @@map("enviados enviados")
+}
+
+model historialDePedidos {
+  id                    String    @id @default(auto()) @map("_id") @db.ObjectId
+  codigo                Int?
+  direccionEnvio        String
+  efectivoTarjeta       String
+  estado                String?
+  /// Multiple data types found: String: 14.3%, DateTime (Date): 85.7% out of 7 sampled entries
+  fecha                 Json
+  fechaEliminacion      DateTime? @db.Date
+  hora                  String
+  iD                    Int?
+  nombre                String
+  nuevoEstado           String?
+  numeroOrden           String
+  pedido                String
+  referenciaOcomentario String
+  telefono              String
+}
+
+model info {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+}
+
+
+
+model users {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  email    String  @unique
+  password String
+  codigo   Int?    // Asegúrate de que esté definido como Int?
+  // ... otros campos
+}
